@@ -44,13 +44,14 @@ const Page = () => {
             setMessage("Theater added successfully!");
             setName("");
             setLocation("");
+            window.location.href = "/Theaters"
         } catch (err: any) {
             setMessage(err.message || "Something went wrong, please try again.");
         }
     };
 
     return (
-        <div className="p-4 max-w-md mx-auto">
+        <div className="p-4 max-w-full flex justify-center items-center mx-auto min-h-screen bg-gray-600">
             <form onSubmit={handleTheater} className="flex flex-col gap-4">
                 <input
                     type="text"
