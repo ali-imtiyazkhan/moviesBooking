@@ -111,7 +111,6 @@ moviesRouter.post('/admin/refunds', authenticate, adminOnly, async (req, res) =>
   }
 });
 
-// Example analytics dashboard
 moviesRouter.get('/admin/reports', authenticate, adminOnly, async (req, res) => {
   try {
     const totalUsers = await prisma.user.count();
