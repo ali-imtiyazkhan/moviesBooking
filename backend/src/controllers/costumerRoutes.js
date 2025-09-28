@@ -3,7 +3,7 @@ import prisma from '../prisma.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { authenticate } from '../middlewares/auth.js';
-import { error } from 'console';
+
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 const CostumerRouter = Router();
 
@@ -20,9 +20,9 @@ CostumerRouter.post('/auth/register', async (req, res) => {
             data: { name, email, password: hashedPassword }
         });
 
-        const token = jwt.sign({ id: user.id, email:user.email }, JWT_SECRET, { expiresIn: "7d" });
+        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "7d" });
 
-        res.status(201).json({ message: "Account created", token, user: { id: user.id, name: user.name, email: user.email,role: user.role } });
+        res.status(201).json({ message: "Account created", token, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
     } catch (err) {
         res.status(500).json({ error: "Failed to register user" });
     }
@@ -38,7 +38,7 @@ CostumerRouter.post('/auth/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
 
-        const token = jwt.sign({ id: user.id, email : user.email }, JWT_SECRET, { expiresIn: "7d" });
+        const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: "7d" });
 
         res.json({ message: "Login successful", token, user: { id: user.id, name: user.name, email: user.email } });
     } catch (err) {
@@ -111,44 +111,78 @@ CostumerRouter.post('/theaters/:theaterId/seats', authenticate, async (req, res)
 
 
 CostumerRouter.get('/seats/:scheduleId', authenticate, async (req, res) => {
-  try {
-    const { scheduleId } = req.params;
+    try {
+        const { scheduleId } = req.params;
 
-    const schedule = await prisma.schedule.findUnique({
-      where: { id: scheduleId }
-    });
-    if (!schedule) return res.status(404).json({ error: "Schedule not found" });
+        const schedule = await prisma.schedule.findUnique({
+            where: { id: scheduleId }
+        });
+        if (!schedule) return res.status(404).json({ error: "Schedule not found" });
 
-    const seats = await prisma.seat.findMany({
-      where: { theaterId: schedule.theaterId },
-      include: { reservations: true }
-    });
+        const seats = await prisma.seat.findMany({
+            where: { theaterId: schedule.theaterId },
+            include: { reservations: true }
+        });
 
-    const availableSeats = seats.filter(seat =>
-      !seat.reservations.some(r => r.scheduleId === scheduleId)
-    );
+        const availableSeats = seats.filter(seat =>
+            !seat.reservations.some(r => r.scheduleId === scheduleId)
+        );
 
-    res.json(availableSeats);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch seats" });
-  }
+        res.json(availableSeats);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to fetch seats" });
+    }
 });
-
 
 
 CostumerRouter.post('/reservations', authenticate, async (req, res) => {
     const { scheduleId, seatIds } = req.body;
+
+    if (!scheduleId || !seatIds || !Array.isArray(seatIds) || seatIds.length === 0) {
+        return res.status(400).json({ error: "scheduleId and seatIds (array) are required" });
+    }
+
     try {
+        const seats = await prisma.seat.findMany({
+            where: { id: { in: seatIds } }
+        });
+
+        if (seats.length !== seatIds.length) {
+            return res.status(400).json({ error: "One or more seats are invalid" });
+        }
+
+        const existingReservations = await prisma.reservation.findMany({
+            where: {
+                scheduleId,
+                seatId: { in: seatIds }
+            }
+        });
+
+        if (existingReservations.length > 0) {
+            const reservedSeatIds = existingReservations.map(r => r.seatId);
+            return res.status(400).json({ error: "Some seats are already reserved", reservedSeatIds });
+        }
+
         const reservations = await Promise.all(
             seatIds.map(seatId =>
                 prisma.reservation.create({
-                    data: { userId: req.user.id, scheduleId, seatId, ReservationStatus: 'CONFIRMED' }
+                    data: {
+                        userId: req.user.id,
+                        scheduleId,
+                        seatId,
+                        status: 'CONFIRMED'
+                    }
                 })
             )
         );
-        res.status(201).json(reservations);
-    } catch {
+
+        res.status(201).json({
+            message: "Seats reserved successfully",
+            reservations
+        });
+    } catch (err) {
+        console.error("Reservation error:", err);
         res.status(500).json({ error: "Failed to reserve seat" });
     }
 });
@@ -166,28 +200,133 @@ CostumerRouter.post('/payments', authenticate, async (req, res) => {
     }
 });
 
+CostumerRouter.post('/tickets', authenticate, async (req, res) => {
+    try {
+        const { reservationId } = req.body;
+
+        if (!reservationId) {
+            return res.status(400).json({ error: "Reservation ID is required" });
+        }
+
+        const reservation = await prisma.reservation.findUnique({
+            where: { id: reservationId },
+            include: { schedule: { include: { movie: true } } }
+        });
+
+        const ticket = await prisma.ticket.create({
+            data: {
+                userId: req.user.id,
+                reservationId: reservation.id,
+                scheduleId: reservation.scheduleId,
+            }
+        });
+
+        res.status(201).json(ticket);
+    } catch (error) {
+        console.error("Ticket creation error:", error);
+        res.status(500).json({ error: "Failed to create ticket" });
+    }
+});
+
+
+
+CostumerRouter.post("/tickets", authenticate, async (req, res) => {
+  try {
+    const { reservationId } = req.body;
+
+    if (!reservationId) {
+      return res.status(400).json({ error: "reservationId is required" });
+    }
+
+    // ✅ STEP 1: Check if reservation exists
+    const reservation = await prisma.reservation.findUnique({
+      where: { id: reservationId }
+    });
+
+    if (!reservation) {
+      return res.status(404).json({ error: "Reservation not found" });
+    }
+
+    // ✅ STEP 2: Check if ticket already exists
+    const existingTicket = await prisma.ticket.findUnique({
+      where: { reservationId }
+    });
+
+    if (existingTicket) {
+      return res.status(200).json({
+        message: "Ticket already exists",
+        ticket: existingTicket
+      });
+    }
+
+    // ✅ STEP 3: Create new ticket ONLY if none exists
+    const ticket = await prisma.ticket.create({
+      data: {
+        reservationId,
+        userId: reservation.userId,
+        scheduleId: reservation.scheduleId,
+        issuedAt: new Date(),
+      }
+    });
+
+    res.status(201).json(ticket);
+
+  } catch (err) {
+  console.error("Ticket creation error full log:", JSON.stringify(err, null, 2));
+  res.status(500).json({ error: "Failed to create ticket", details: err.message || err });
+}
+});
+
+
+
 
 CostumerRouter.get('/tickets', authenticate, async (req, res) => {
     try {
         const tickets = await prisma.ticket.findMany({
             where: { userId: req.user.id },
-            include: { reservation: true, schedule: true, movie: true }
+            include: {
+                reservation: {
+                    include: {
+                        schedule: {
+                            include: {
+                                movie: true,
+                                theater: true,
+                            }
+                        }
+                    }
+                }
+            }
         });
         res.json(tickets);
-    } catch {
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ error: "Failed to fetch tickets" });
     }
 });
+
+
+
 
 CostumerRouter.get('/tickets/:id', authenticate, async (req, res) => {
     try {
         const ticket = await prisma.ticket.findUnique({
             where: { id: req.params.id },
-            include: { reservation: true, schedule: true, movie: true }
+            include: {
+                reservation: {
+                    include: {
+                        schedule: {
+                            include: {
+                                movie: true
+                            }
+                        }
+                    }
+                }
+            }
         });
         if (!ticket) return res.status(404).json({ error: "Ticket not found" });
         res.json(ticket);
-    } catch {
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ error: "Failed to fetch ticket" });
     }
 });

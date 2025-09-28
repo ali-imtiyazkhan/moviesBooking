@@ -21,20 +21,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/Movies/[id]/page.js"
     ],
-    "/AddMovies/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/AddMovies/page.js"
-    ],
-    "/SearchFile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/SearchFile/page.js"
-    ],
     "/Theaters/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/Theaters/page.js"
+    ],
+    "/Help/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/Help/page.js"
     ],
     "/schedules/[movieId]/page": [
       "static/chunks/webpack.js",
@@ -45,6 +40,26 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/book/[scheduleId]/page.js"
+    ],
+    "/payment/[reservationId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/payment/[reservationId]/page.js"
+    ],
+    "/tickets/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/tickets/page.js"
+    ],
+    "/tickets/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/tickets/[id]/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

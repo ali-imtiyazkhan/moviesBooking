@@ -7,7 +7,7 @@ import { authenticate } from '../middlewares/auth.js';
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey';
 
-router.post('/SignUp', async (req, res) => {
+router.post('/signup', async (req, res) => {
   const { name, email, password, role } = req.body;
 
   try {
@@ -20,7 +20,11 @@ router.post('/SignUp', async (req, res) => {
       data: { name, email, password: hashedPassword, role }
     });
 
-    const token = jwt.sign({ userId: newUser.id, role: newUser.role }, JWT_SECRET);
+    const token = jwt.sign(
+      { id: newUser.id, role: newUser.role },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
 
     res.status(201).json({
       token,
@@ -32,7 +36,7 @@ router.post('/SignUp', async (req, res) => {
   }
 });
 
-router.post('/Login', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -42,7 +46,11 @@ router.post('/Login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
-    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
 
     res.json({
       token,
@@ -53,7 +61,6 @@ router.post('/Login', async (req, res) => {
     res.status(500).json({ error: 'Login failed' });
   }
 });
-
 
 router.get('/GetUsers', authenticate, async (req, res) => {
   if (req.user.role !== 'ADMIN') return res.status(403).json({ error: 'Admin access required' });

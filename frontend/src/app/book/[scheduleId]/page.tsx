@@ -8,7 +8,7 @@ interface Seat {
   row: string;
   number: number;
   isVip: boolean;
-  reserved?:boolean
+  reserved?: boolean;
 }
 
 export default function BookSeatsPage() {
@@ -18,15 +18,14 @@ export default function BookSeatsPage() {
   const [seats, setSeats] = useState<Seat[]>([]);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [reserving, setReserving] = useState(false);
 
-  // Toggle seat selection
   const toggleSeat = (seatId: string) => {
-    setSelectedSeats(prev =>
-      prev.includes(seatId) ? prev.filter(s => s !== seatId) : [...prev, seatId]
+    setSelectedSeats((prev) =>
+      prev.includes(seatId) ? prev.filter((s) => s !== seatId) : [...prev, seatId]
     );
   };
 
-  // Fetch seats from backend
   useEffect(() => {
     const fetchSeats = async () => {
       const token = localStorage.getItem("token");
@@ -36,7 +35,9 @@ export default function BookSeatsPage() {
         const res = await fetch(`http://localhost:3000/api/custumer/seats/${scheduleId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const data = await res.json();
+        if (!res.ok) throw new Error("Failed to fetch seats");
+
+        const data: Seat[] = await res.json();
         setSeats(data);
       } catch (err) {
         console.error("Failed to fetch seats:", err);
@@ -49,11 +50,13 @@ export default function BookSeatsPage() {
     if (scheduleId) fetchSeats();
   }, [scheduleId]);
 
-
   const reserveSeats = async () => {
+    if (reserving) return;
     const token = localStorage.getItem("token");
     if (!token) return alert("Login first");
     if (!selectedSeats.length) return alert("Select seats first");
+
+    setReserving(true);
 
     try {
       const res = await fetch("http://localhost:3000/api/custumer/reservations", {
@@ -65,17 +68,16 @@ export default function BookSeatsPage() {
         body: JSON.stringify({ scheduleId, seatIds: selectedSeats }),
       });
 
-      if (!res.ok) {
-        const errData = await res.json();
-        return alert("Reservation failed: " + (errData.error || "Unknown error"));
-      }
-
       const data = await res.json();
+      if (!res.ok) return alert("Reservation failed: " + (data.error || "Unknown error"));
+
       alert("Seats reserved successfully!");
-      router.push(`/payments/${data[0].id}`);
+      router.push(`/payment/${data.reservations[0].id}`);
     } catch (err) {
       console.error(err);
       alert("Failed to reserve seats");
+    } finally {
+      setReserving(false);
     }
   };
 
@@ -86,29 +88,33 @@ export default function BookSeatsPage() {
       <h2 className="text-2xl font-bold mb-4">Select Seats</h2>
 
       <div className="grid grid-cols-6 gap-3 mb-6">
-        {seats.map(seat => (
+        {seats.map((seat) => (
           <button
             key={seat.id}
             onClick={() => toggleSeat(seat.id)}
-            disabled={seat['reserved']} // optional: disable if already reserved
+            disabled={seat.reserved}
             className={`p-2 rounded transition ${
               selectedSeats.includes(seat.id)
                 ? "bg-green-600"
-                : seat['reserved']
+                : seat.reserved
                 ? "bg-gray-500 cursor-not-allowed"
+                : seat.isVip
+                ? "bg-yellow-500 hover:bg-yellow-400"
                 : "bg-gray-700 hover:bg-gray-600"
             }`}
           >
-            {seat.row}{seat.number} {seat.isVip ? "⭐" : ""}
+            {seat.row}
+            {seat.number} {seat.isVip ? "⭐" : ""}
           </button>
         ))}
       </div>
 
       <button
         onClick={reserveSeats}
-        className="bg-red-600 px-6 py-2 rounded font-bold hover:bg-red-700 transition"
+        disabled={reserving}
+        className="bg-red-600 px-6 py-2 rounded font-bold hover:bg-red-700 transition disabled:opacity-50"
       >
-        Reserve Selected Seats
+        {reserving ? "Reserving..." : "Reserve Selected Seats"}
       </button>
     </div>
   );

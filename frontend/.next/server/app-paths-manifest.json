@@ -1,8 +1,9 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/tickets/[id]/page": "app/tickets/[id]/page.js",
   "/page": "app/page.js",
   "/Movies/page": "app/Movies/page.js",
-  "/schedules/[movieId]/page": "app/schedules/[movieId]/page.js",
-  "/book/[scheduleId]/page": "app/book/[scheduleId]/page.js",
-  "/Movies/[id]/page": "app/Movies/[id]/page.js"
+  "/Movies/[id]/page": "app/Movies/[id]/page.js",
+  "/schedules/[movieId]/page": "app/schedules/[movieId]/page.js"
 }
