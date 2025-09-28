@@ -54,40 +54,42 @@ const Page = () => {
     }, []);
 
     return (
-
         <div>
-
             <Header />
-            <div className="p-4 max-w-full min-h-screen pt-27 gap-1.5  mx-auto bg-gray-700">
-                {loading && <p>Loading theaters...</p>}
-                {message && <p className="text-gray-800">{message}</p>}
+            <div className="p-4 max-w-full min-h-screen pt-27 gap-1.5 mx-auto bg-gray-700">
+                
+                {loading && (
+                    <div className="flex justify-center items-center py-10">
+                        <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                        <span className="ml-3 text-white font-medium">Loading theaters...</span>
+                    </div>
+                )}
+
+                {message && <p className="text-red-400 font-medium">{message}</p>}
 
                 <ul className="mt-4 space-y-2">
-                    <ul className="mt-4 space-y-2">
-                        {theaters.map((theater) => (
-                            <div key={theater.id}>
-                                <li
-                                    className="border rounded-2xl p-2  shadow-sm bg-gray-800 text-white flex items-center justify-between"
-                                >
-                                    <div>
-                                        <h3 className="font-bold">{theater.name}</h3>
-                                        <p>{theater.location}</p>
-                                    </div>
-
-                                    <button
-                                        className="bg-gray-600 hover:bg-gray-900 text-white px-3 py-1 rounded"
-                                        onClick={() => alert(`Status for ${theater.name}`)}
-                                    >
-                                        See Status
-                                    </button>
-                                </li>
+                    {theaters.map((theater) => (
+                        <li
+                            key={theater.id}
+                            className="border rounded-2xl p-4 shadow-sm bg-gray-800 text-white flex items-center justify-between"
+                        >
+                            <div>
+                                <h3 className="font-bold text-lg">{theater.name}</h3>
+                                <p className="text-gray-300">{theater.location}</p>
                             </div>
-                        ))}
-                    </ul>
 
+                            <button
+                                className="bg-gray-600 hover:bg-gray-900 text-white px-3 py-1 rounded"
+                                onClick={() => alert(`Status for ${theater.name}`)}
+                            >
+                                See Status
+                            </button>
+                        </li>
+                    ))}
                 </ul>
             </div>
-        </div>);
+        </div>
+    );
 };
 
 export default Page;

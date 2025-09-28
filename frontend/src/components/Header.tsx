@@ -14,6 +14,8 @@ const Header = () => {
 
   const handleSearch = () => {
     console.log("Search for:", searchQuery);
+    
+
   };
 
   return (
@@ -43,15 +45,15 @@ const Header = () => {
         <Link href="/Theaters" onClick={() => setMobileOpen(false)}>
           Theaters
         </Link>
-        <Link href="/new" onClick={() => setMobileOpen(false)}>
-          New
+        <Link href="/Help" onClick={() => setMobileOpen(false)}>
+          Help
         </Link>
       </nav>
 
       <div className="flex items-center gap-4">
         <SearchIcon
           className="w-6 h-6 cursor-pointer"
-          onClick={() => setSearchOpen(true)}
+          onClick={() =>  setSearchOpen(true)}
         />
 
         <div className="relative">

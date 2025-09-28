@@ -72,6 +72,24 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../src/app/Help/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/Help">> = Specific
+  const handler = {} as typeof import("../../src/app/Help/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/Movies/[id]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/Movies/[id]">> = Specific
+  const handler = {} as typeof import("../../src/app/Movies/[id]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/Movies/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/Movies">> = Specific
@@ -99,10 +117,37 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../src/app/book/[scheduleId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/book/[scheduleId]">> = Specific
+  const handler = {} as typeof import("../../src/app/book/[scheduleId]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/">> = Specific
   const handler = {} as typeof import("../../src/app/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/payment/[reaservationId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/payment/[reaservationId]">> = Specific
+  const handler = {} as typeof import("../../src/app/payment/[reaservationId]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/schedules/[movieId]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/schedules/[movieId]">> = Specific
+  const handler = {} as typeof import("../../src/app/schedules/[movieId]/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

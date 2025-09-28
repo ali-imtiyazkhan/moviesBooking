@@ -103,7 +103,7 @@ router.put('/:id', authenticate, async (req, res) => {
   try {
     const updatedData = { name, email };
     if (password) updatedData.password = await bcrypt.hash(password, 10);
-    if (role && req.user.role === 'ADMIN') updatedData.role = role; // Only admin can update role
+    if (role && req.user.role === 'ADMIN') updatedData.role = role;
 
     const updatedUser = await prisma.user.update({
       where: { id },

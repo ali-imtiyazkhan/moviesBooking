@@ -80,19 +80,61 @@ CostumerRouter.get('/schedules/:movieId', authenticate, async (req, res) => {
     }
 });
 
+CostumerRouter.post('/theaters/:theaterId/seats', authenticate, async (req, res) => {
+    const { theaterId } = req.params;
+    const { rows = 5, seatsPerRow = 6, vipRows = 1 } = req.body;
 
-CostumerRouter.get('/seats/:scheduleId', authenticate, async (req, res) => {
     try {
-        const seats = await prisma.seat.findMany({
-            where: { scheduleId: req.params.scheduleId },
-            include: { reservation: true }
-        });
-        const available = seats.filter(s => !s.reservation);
-        res.json(available);
-    } catch {
-        res.status(500).json({ error: "Failed to fetch seats" });
+        const createdSeats = [];
+
+        for (let r = 1; r <= rows; r++) {
+            for (let s = 1; s <= seatsPerRow; s++) {
+                const seat = await prisma.seat.create({
+                    data: {
+                        theaterId,
+                        row: String.fromCharCode(64 + r),
+                        number: s,
+                        isVip: r <= vipRows,
+                    },
+                });
+                createdSeats.push(seat);
+            }
+        }
+
+        res.status(201).json({ message: "Seats created", seats: createdSeats });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to create seats" });
     }
 });
+
+
+
+CostumerRouter.get('/seats/:scheduleId', authenticate, async (req, res) => {
+  try {
+    const { scheduleId } = req.params;
+
+    const schedule = await prisma.schedule.findUnique({
+      where: { id: scheduleId }
+    });
+    if (!schedule) return res.status(404).json({ error: "Schedule not found" });
+
+    const seats = await prisma.seat.findMany({
+      where: { theaterId: schedule.theaterId },
+      include: { reservations: true }
+    });
+
+    const availableSeats = seats.filter(seat =>
+      !seat.reservations.some(r => r.scheduleId === scheduleId)
+    );
+
+    res.json(availableSeats);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch seats" });
+  }
+});
+
 
 
 CostumerRouter.post('/reservations', authenticate, async (req, res) => {
