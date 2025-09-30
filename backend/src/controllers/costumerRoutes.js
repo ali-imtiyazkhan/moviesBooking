@@ -238,7 +238,6 @@ CostumerRouter.post("/tickets", authenticate, async (req, res) => {
       return res.status(400).json({ error: "reservationId is required" });
     }
 
-    // ✅ STEP 1: Check if reservation exists
     const reservation = await prisma.reservation.findUnique({
       where: { id: reservationId }
     });
@@ -247,7 +246,6 @@ CostumerRouter.post("/tickets", authenticate, async (req, res) => {
       return res.status(404).json({ error: "Reservation not found" });
     }
 
-    // ✅ STEP 2: Check if ticket already exists
     const existingTicket = await prisma.ticket.findUnique({
       where: { reservationId }
     });
@@ -259,7 +257,6 @@ CostumerRouter.post("/tickets", authenticate, async (req, res) => {
       });
     }
 
-    // ✅ STEP 3: Create new ticket ONLY if none exists
     const ticket = await prisma.ticket.create({
       data: {
         reservationId,

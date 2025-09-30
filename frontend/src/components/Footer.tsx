@@ -1,41 +1,41 @@
-"use client"
+"use client";
 
-import { Github, Twitter, Linkedin, Mail } from "lucide-react"
-import React from "react"
+import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import React from "react";
 
 export default function Footer() {
   function handleLogOut() {
-    localStorage.removeItem("token")
-    window.location.href = "/router/SignIn"
+    localStorage.removeItem("token");
+    window.location.href = "/AdminLogin";
   }
 
   return (
-    <footer className="bg-muted mt-20">
+    <footer className="bg-gray-900 text-gray-200 mt-20">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gray-800">
-                <span className="text-primary-foreground font-bold text-lg">B</span>
+                <span className="text-white font-bold text-lg">B</span>
               </div>
-              <span className="font-bold text-xl text-balance">Book Today Show</span>
+              <span className="font-bold text-xl">Book Today Show</span>
             </div>
-            <p className="text-sm text-muted-foreground text-pretty">
+            <p className="text-sm text-gray-400">
               Sharing insights, stories, and ideas that inspire innovation and creativity in the digital world.
             </p>
-            <div className="flex space-x-2">
-              <button className="p-2 rounded-full hover:bg-gray-200 transition">
-                <Twitter className="w-4 h-4" />
+            <div className="flex space-x-3">
+              <button className="p-2 rounded-full hover:bg-gray-700 transition">
+                <Twitter className="w-5 h-5" />
               </button>
-              <button className="p-2 rounded-full hover:bg-gray-200 transition">
-                <Github className="w-4 h-4" />
+              <button className="p-2 rounded-full hover:bg-gray-700 transition">
+                <Github className="w-5 h-5" />
               </button>
-              <button className="p-2 rounded-full hover:bg-gray-200 transition">
-                <Linkedin className="w-4 h-4" />
+              <button className="p-2 rounded-full hover:bg-gray-700 transition">
+                <Linkedin className="w-5 h-5" />
               </button>
-              <button className="p-2 rounded-full hover:bg-gray-200 transition">
-                <Mail className="w-4 h-4" />
+              <button className="p-2 rounded-full hover:bg-gray-700 transition">
+                <Mail className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function Footer() {
                 <li key={link}>
                   <a
                     href="#"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     {link}
                   </a>
@@ -61,11 +61,11 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="font-semibold">Categories</h3>
             <ul className="space-y-2 text-sm">
-              {["Action", "Sci-fi", "science", "Horror", "Romance"].map((cat) => (
+              {["Action", "Sci-fi", "Science", "Horror", "Romance"].map((cat) => (
                 <li key={cat}>
                   <a
                     href="#"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     {cat}
                   </a>
@@ -77,47 +77,41 @@ export default function Footer() {
           {/* Newsletter */}
           <div className="space-y-4">
             <h3 className="font-semibold">Stay Updated</h3>
-            <p className="text-sm text-muted-foreground text-pretty">
+            <p className="text-sm text-gray-400">
               Subscribe to get the latest Movies delivered to your inbox.
             </p>
-            <div className="space-y-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="email"
                 placeholder="Your email address"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary"
+                className="flex-1 px-3 py-2 border border-gray-700 rounded-md focus:outline-none focus:ring focus:ring-blue-500 text-white"
               />
-              <button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-medium py-2 rounded-md transition">
+              <button className="w-full sm:w-auto bg-gray-600 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-md transition">
                 Subscribe
               </button>
             </div>
           </div>
         </div>
 
-        <hr className="my-8" />
+        <hr className="my-8 border-gray-700" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>&copy; 2024 My Book Show . All rights reserved.</p>
+        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4 md:gap-0">
+          <p>&copy; 2024 My Book Show. All rights reserved.</p>
 
           <button
             onClick={handleLogOut}
-            className="bg-gray-800 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-md transition"
+            className="bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-md transition"
           >
             Logout
           </button>
 
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-primary transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-primary transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-primary transition-colors">
-              Cookie Policy
-            </a>
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }

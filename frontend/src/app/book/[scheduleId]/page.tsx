@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 interface Seat {
   id: string;
@@ -10,6 +12,13 @@ interface Seat {
   isVip: boolean;
   reserved?: boolean;
 }
+
+const Loader = () => (
+  <div className="min-h-screen flex flex-col items-center justify-center h-40 bg-gray-700">
+    <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+    <p className="mt-3 text-white text-sm">Booking your perfect seat...</p>
+  </div>
+);
 
 export default function BookSeatsPage() {
   const { scheduleId } = useParams();
@@ -81,41 +90,49 @@ export default function BookSeatsPage() {
     }
   };
 
-  if (loading) return <p className="text-white p-6">Loading seats...</p>;
+  if (loading) return <Loader />;
 
   return (
-    <div className="p-6 bg-gray-900 min-h-screen text-white">
-      <h2 className="text-2xl font-bold mb-4">Select Seats</h2>
+    <div>
+      <Header />
 
-      <div className="grid grid-cols-6 gap-3 mb-6">
-        {seats.map((seat) => (
-          <button
-            key={seat.id}
-            onClick={() => toggleSeat(seat.id)}
-            disabled={seat.reserved}
-            className={`p-2 rounded transition ${
-              selectedSeats.includes(seat.id)
-                ? "bg-green-600"
-                : seat.reserved
-                ? "bg-gray-500 cursor-not-allowed"
-                : seat.isVip
-                ? "bg-yellow-500 hover:bg-yellow-400"
-                : "bg-gray-700 hover:bg-gray-600"
-            }`}
-          >
-            {seat.row}
-            {seat.number} {seat.isVip ? "⭐" : ""}
-          </button>
-        ))}
+      <div className="p-6 bg-gray-900 min-h-screen text-white pt-32">
+        <h2 className="text-2xl font-bold mb-4">Select Seats</h2>
+
+        <div className="grid grid-cols-6 gap-3 mb-6">
+          {seats.map((seat) => (
+            <button
+              key={seat.id}
+              type="button" // ✅ Prevents reload
+              onClick={() => toggleSeat(seat.id)}
+              disabled={seat.reserved}
+              className={`p-2 rounded transition ${
+                selectedSeats.includes(seat.id)
+                  ? "bg-green-600"
+                  : seat.reserved
+                  ? "bg-gray-500 cursor-not-allowed"
+                  : seat.isVip
+                  ? "bg-pink-500 hover:bg-yellow-400"
+                  : "bg-gray-700 hover:bg-gray-600"
+              }`}
+            >
+              {seat.row}
+              {seat.number} {seat.isVip ? "⭐" : ""}
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button" // ✅ Prevents reload
+          onClick={reserveSeats}
+          disabled={reserving}
+          className="bg-red-600 px-6 py-2 rounded font-bold hover:bg-red-700 transition disabled:opacity-50"
+        >
+          {reserving ? "Reserving..." : "Reserve Selected Seats"}
+        </button>
+
+        <Footer />
       </div>
-
-      <button
-        onClick={reserveSeats}
-        disabled={reserving}
-        className="bg-red-600 px-6 py-2 rounded font-bold hover:bg-red-700 transition disabled:opacity-50"
-      >
-        {reserving ? "Reserving..." : "Reserve Selected Seats"}
-      </button>
     </div>
   );
 }

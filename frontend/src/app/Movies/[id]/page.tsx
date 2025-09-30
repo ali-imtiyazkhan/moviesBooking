@@ -100,7 +100,7 @@ const MovieDetailPage = () => {
         <p className="mb-2"><strong>Rating:</strong> {movie.rating}</p>
         <p className="mb-4"><strong>Description:</strong> {movie.description}</p>
         <button
-          onClick={() => router.push("/movies")}
+          onClick={() => router.push(`/schedules/${movie.id}`)}
           className="px-6 py-2 bg-red-600 rounded hover:bg-blue-800 transition"
         >
           Book The Ticket

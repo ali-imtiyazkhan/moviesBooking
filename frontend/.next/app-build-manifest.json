@@ -21,16 +21,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/Movies/[id]/page.js"
     ],
-    "/Theaters/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/Theaters/page.js"
-    ],
-    "/Help/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/Help/page.js"
-    ],
     "/schedules/[movieId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -50,11 +40,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/tickets/page.js"
-    ],
-    "/tickets/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/tickets/[id]/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

@@ -3,43 +3,62 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function PaymentPage() {
   const { reservationId } = useParams();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const amount = 499;
 
   const handlePayment = async () => {
     const token = localStorage.getItem("token");
     if (!token) return alert("Login first");
 
     try {
-
-      alert("Payment Successful!");
-
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      alert(`Payment of ₹${amount} Successful!`);
       router.push(`/tickets`);
     } catch (err) {
       console.error(err);
       alert("Something went wrong while creating ticket");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="relative">
+      <Header />
 
-      <Header/>
-      <div className="p-6 pt-32 bg-gray-900 min-h-screen text-white">
-        <h2 className="text-2xl font-bold mb-4">Payment Page</h2>
-        <p>Reservation ID: {reservationId}</p>
+      <div className="bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen flex flex-col items-center justify-center text-white p-6 pt-32">
 
-        <button
-          onClick={handlePayment}
-          className="bg-green-600 px-6 py-2 rounded font-bold hover:bg-green-700 mt-4"
-        >
-          Proceed to Pay
-        </button>
-        
-        <Footer/>
-      </div>
-      
-    </div>);
+        <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl text-center">
+
+          <h2 className="text-3xl font-bold mb-4">Complete Your Payment</h2>
+
+          <p className="text-gray-300 mb-1">Reservation ID:</p>
+          <p className="font-mono text-lg mb-4 bg-black/30 py-2 px-4 rounded-lg inline-block">{reservationId}</p>
+
+          <p className="text-gray-300 mb-1">Amount to Pay</p>
+          <p className="text-4xl font-extrabold mb-6 text-green-400">₹{amount}</p>
+
+          <button
+            onClick={handlePayment}
+            disabled={loading}
+            className={`bg-gray-900 border-2 border-gray-500 px-8 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-green-700 transition-all ${
+              loading ? "opacity-70 cursor-not-allowed animate-pulse" : ""
+            }`}
+          >
+            {loading ? "Processing..." : "Proceed to Pay"}
+          </button>
+        </div>
+        <div className="pt-10">  <Footer /></div>
+     
+
+      </div> 
+    </div>
+  );
 }
