@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { TicketIcon } from "lucide-react";
 
 interface Ticket {
   id: string;
@@ -48,50 +49,57 @@ export default function TicketsPage() {
     fetchTickets();
   }, []);
 
-  if (loading) return <p className="text-white p-6">Loading tickets...</p>;
+  if (loading)
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+        <div className="w-10 h-10 border-4 border-gray-600 border-t-white rounded-full animate-spin"></div>
+        <p className="mt-4 text-gray-400">Fetching your tickets...</p>
+      </div>
+    );
 
   return (
-
     <div>
       <Header />
 
-      <div className="p-6 pt-32 bg-gray-900 min-h-screen text-white">
-        <h2 className="text-2xl font-bold mb-4">Your Tickets</h2>
+      <div className="p-6 pt-32 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white">
+        <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
+          <TicketIcon className="w-7 h-7 text-yellow-400" /> Your Tickets
+        </h2>
 
         {tickets.length === 0 ? (
-          <p>No tickets found.</p>
+          <p className="text-gray-400">No tickets found.</p>
         ) : (
           <ul className="space-y-4">
             {tickets.map((ticket) => (
               <li
                 key={ticket.id}
-                className="bg-gray-800 p-4 rounded flex justify-between items-center"
+                className="bg-gray-800/80 p-5 rounded-xl shadow-md border border-gray-700 hover:scale-[1.01] transition-all flex justify-between items-center"
               >
                 <div>
-                  <p className="text-lg font-bold">
+                  <p className="text-xl font-semibold text-yellow-400">
                     {ticket.reservation?.schedule?.movie?.title || "Unknown Movie"}
                   </p>
-                  <p>
+                  <p className="text-gray-300">
                     {ticket.reservation?.schedule?.startTime
                       ? new Date(ticket.reservation.schedule.startTime).toLocaleString()
                       : "Unknown Time"}
                   </p>
-                  <p>Seat: {ticket.reservation?.seatId || "Unknown"}</p>
-                  <p>Status: {ticket.reservation?.status || "Unknown"}</p>
+                  <p className="text-gray-400">🪑 Seat: {ticket.reservation?.seatId || "Unknown"}</p>
+                  <p className="text-gray-400">📌 Status: {ticket.reservation?.status || "Unknown"}</p>
                 </div>
                 <Link
                   href={`/tickets/${ticket.id}`}
-                  className="text-blue-400 hover:underline"
+                  className="text-blue-400 font-medium hover:text-blue-200 transition"
                 >
-                  View
+                  View →
                 </Link>
               </li>
             ))}
           </ul>
         )}
+
         <Footer />
       </div>
-
-
-    </div>);
+    </div>
+  );
 }

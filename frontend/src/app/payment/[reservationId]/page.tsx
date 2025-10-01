@@ -18,6 +18,18 @@ export default function PaymentPage() {
 
     try {
       setLoading(true);
+
+      const res = await fetch("http://localhost:3000/api/custumer/tickets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ reservationId })
+      })
+      const data = await res.json();
+      if (!res.ok) return alert("ticket Booking failed: " + (data.error || "Unknown error"));
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
       alert(`Payment of ₹${amount} Successful!`);
       router.push(`/tickets`);
@@ -48,17 +60,16 @@ export default function PaymentPage() {
           <button
             onClick={handlePayment}
             disabled={loading}
-            className={`bg-gray-900 border-2 border-gray-500 px-8 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-green-700 transition-all ${
-              loading ? "opacity-70 cursor-not-allowed animate-pulse" : ""
-            }`}
+            className={`bg-gray-900 border-2 border-gray-500 px-8 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-green-700 transition-all ${loading ? "opacity-70 cursor-not-allowed animate-pulse" : ""
+              }`}
           >
             {loading ? "Processing..." : "Proceed to Pay"}
           </button>
         </div>
         <div className="pt-10">  <Footer /></div>
-     
 
-      </div> 
+
+      </div>
     </div>
   );
 }

@@ -1,11 +1,8 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/schedules/[movieId]/page": "app/schedules/[movieId]/page.js",
   "/Movies/[id]/page": "app/Movies/[id]/page.js",
-  "/book/[scheduleId]/page": "app/book/[scheduleId]/page.js",
-  "/payment/[reservationId]/page": "app/payment/[reservationId]/page.js",
-  "/tickets/page": "app/tickets/page.js",
-  "/Movies/page": "app/Movies/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/Info/page": "app/Info/page.js",
+  "/CustomerLogin/page": "app/CustomerLogin/page.js",
+  "/SearchFile/page": "app/SearchFile/page.js"
 }

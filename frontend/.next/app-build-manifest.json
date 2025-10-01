@@ -41,6 +41,36 @@
       "static/chunks/main-app.js",
       "static/chunks/app/tickets/page.js"
     ],
+    "/tickets/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/tickets/[id]/page.js"
+    ],
+    "/AdminLogin/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/AdminLogin/page.js"
+    ],
+    "/AddMovies/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/AddMovies/page.js"
+    ],
+    "/Info/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/Info/page.js"
+    ],
+    "/CustomerLogin/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/CustomerLogin/page.js"
+    ],
+    "/SearchFile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/SearchFile/page.js"
+    ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

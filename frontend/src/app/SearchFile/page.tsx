@@ -32,36 +32,56 @@ export default function MovieSearch() {
   }
 
   return (
-    <div className="p-4">
-      <div className="flex gap-2 mb-4">
+    <div className="min-h-screen bg-gray-900 text-white p-6">
+
+      {/* Search Bar */}
+      <div className="flex gap-2 mb-6 max-w-3xl mx-auto">
         <input
           type="text"
           placeholder="Search movies..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="border rounded px-4 py-2 flex-1"
+          className="border border-gray-700 bg-gray-800 text-white rounded px-4 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           onClick={handleSearch}
-          className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700"
+          className="bg-blue-600 hover:bg-blue-700 transition px-6 py-2 rounded"
         >
           Search
         </button>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {/* Loader */}
+      {loading && (
+        <div className="flex justify-center items-center py-20">
+          <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        </div>
+      )}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Empty State */}
+      {!loading && movies.length === 0 && (
+        <p className="text-center text-gray-400 mt-20 text-lg">
+          🔍 Search any movie you like
+        </p>
+      )}
+
+      {/* Movie Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
         {movies.map((m) => (
-          <div key={m.imdbID} className="flex flex-col items-center">
+          <div
+            key={m.imdbID}
+            className="bg-white/10 border border-gray-700 rounded-xl shadow-lg p-3 flex flex-col items-center backdrop-blur-md hover:scale-105 hover:shadow-xl transition-transform duration-300"
+          >
             <img
               src={m.Poster !== "N/A" ? m.Poster : "/placeholder.png"}
               alt={m.Title}
-              className="w-48 h-72 object-cover rounded"
+              className="w-40 h-60 object-cover rounded-lg mb-3"
             />
-            <h2 className="mt-2 font-semibold">{m.Title}</h2>
-            <p className="text-sm text-gray-500">{m.Year}</p>
-            <button className="cursor-pointer">Book Show</button>
+            <h2 className="text-center font-bold">{m.Title}</h2>
+            <p className="text-sm text-gray-400">{m.Year}</p>
+            <button className="mt-2 bg-green-600 hover:bg-green-700 px-4 py-1 rounded text-white transition">
+              Book Show
+            </button>
           </div>
         ))}
       </div>

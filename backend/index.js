@@ -6,9 +6,16 @@ import cors from "cors"
 
 
 
-const app = express(); 
+const app = express();
+
+app.get("/", (req, res) => {
+    res.json({
+        message: "All is Well "
+    })
+})
 app.use(cors());
 app.use(express.json());
+
 
 app.use('/users', router);
 app.use('/api', moviesRouter);

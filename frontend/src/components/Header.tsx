@@ -5,6 +5,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { assets } from "../../public/assets/assets";
 import { MenuIcon, SearchIcon, XIcon, ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -12,6 +15,7 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
   const [adminDropdownOpen, setAdminDropdownOpen] = useState(false);
+  const router = useRouter();
 
   const handleSearch = () => {
     console.log("Search for:", searchQuery);
@@ -45,15 +49,15 @@ const Header = () => {
       <div className="flex items-center gap-4">
         <SearchIcon
           className="w-6 h-6 cursor-pointer"
-          onClick={() => setSearchOpen(true)}
+          onClick={() => router.push("/SearchFile")}
         />
 
         <div className="relative">
           <button
             onClick={() => setLoginOpen(!loginOpen)}
-            className="px-4 py-1 sm:px-7 sm:py-2 bg-gray-500 hover:bg-gray-800 transition rounded-full font-medium cursor-pointer"
+            className="px-4 py-1 sm:px-7 sm:py-2 bg-gray-600 hover:bg-gray-800 transition rounded-full font-medium cursor-pointer"
           >
-            LogIn
+            Special
           </button>
 
           {loginOpen && (
@@ -71,7 +75,7 @@ const Header = () => {
                   <Link href="/AddMovies" className="px-4 py-2 hover:bg-gray-200">Add Movies</Link>
                   <Link href="/AddSchedules" className="px-4 py-2 hover:bg-gray-200">Add Schedule</Link>
                   <Link href="/ManageTickets" className="px-4 py-2 hover:bg-gray-200">Manage Tickets</Link>
-                  <Link href="/ManageUsers" className="px-4 py-2 hover:bg-gray-200">Manage Users</Link>
+                  <Link href="/Info" className="px-4 py-2 hover:bg-gray-200">Total Info</Link>
                 </div>
               )}
 
@@ -91,31 +95,6 @@ const Header = () => {
         />
       </div>
 
-      {/* Search Overlay */}
-      {searchOpen && (
-        <div className="fixed pt-[51px] inset-0 z-50 bg-black/41 min-h-screen backdrop-blur-sm flex items-center justify-center px-4">
-          <div className="rounded-xl w-full max-w-lg p-6 relative">
-            <XIcon
-              className="w-6 h-6 my-4 -mx-6 absolute top-4 right-4 cursor-pointer"
-              onClick={() => setSearchOpen(false)}
-            />
-            <input
-              type="text"
-              className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Search movies..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            />
-            <button
-              onClick={handleSearch}
-              className="mt-4 w-full bg-gray-600 text-white py-2 rounded-full hover:bg-gray-800 transition"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      )}
     </header>
   );
 };

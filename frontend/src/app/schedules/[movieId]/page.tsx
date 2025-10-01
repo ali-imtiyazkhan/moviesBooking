@@ -56,13 +56,17 @@ export default function MovieSchedulesPage() {
 
     if (movieId) fetchSchedules();
   }, [movieId]);
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-white text-lg">Loading schedules...</p>
+if (loading)
+  return (
+    <div className="flex flex-col items-center justify-center h-screen bg-black text-white">
+      <p className="text-lg mb-3">🎬 Grabbing Movie schedule...</p>
+      <div className="flex space-x-2">
+        <div className="w-3 h-3 bg-yellow-400 rounded-full animate-bounce"></div>
+        <div className="w-3 h-3 bg-red-400 rounded-full animate-bounce delay-150"></div>
+        <div className="w-3 h-3 bg-blue-400 rounded-full animate-bounce delay-300"></div>
       </div>
-    );
+    </div>
+  );
 
   if (schedules.length === 0)
     return (
