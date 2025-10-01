@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
         message: "All is Well "
     })
 })
+
 app.use(cors());
 app.use(express.json());
 

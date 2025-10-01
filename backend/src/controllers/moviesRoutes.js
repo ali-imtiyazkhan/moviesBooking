@@ -120,11 +120,13 @@ moviesRouter.get('/admin/reports', authenticate, adminOnly, async (req, res) => 
     const totalTransactions = await prisma.transaction.count();
     const totalRevenue = await prisma.transaction.aggregate({ _sum: { amount: true } });
 
+    console.log(totalMovies);
+
     res.json({
       totalUsers,
       totalMovies,
       totalReservations,
-      totalTransactions:totalTransactions||1000,
+      totalTransactions,
       totalRevenue: totalRevenue._sum.amount || 100000
     });
   } catch (err) {
