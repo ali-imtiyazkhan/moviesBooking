@@ -59,8 +59,8 @@ const MovieDetailPage = () => {
         }
 
         setMovie(data);
-      } catch (err: any) {
-        setError(err.message || "Something went wrong");
+      } catch (err) {
+        setError(err + "Something went wrong");
       } finally {
         setLoading(false);
       }

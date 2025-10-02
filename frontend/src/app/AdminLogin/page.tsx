@@ -29,8 +29,8 @@ export default function Signup() {
       alert("User Registered Successfully!");
       localStorage.setItem("token", res.data.token);
       window.location.href = "/";
-    } catch (err: any) {
-      alert(err.response?.data?.error || "Signup failed");
+    } catch (err) {
+      alert(err + "Signup failed");
     }
   };
 
