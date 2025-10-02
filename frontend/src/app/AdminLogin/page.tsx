@@ -27,10 +27,10 @@ export default function Signup() {
     try {
       const res = await axios.post("https://moviesbooking-8.onrender.com/users/SignUp", formData);
       alert("User Registered Successfully!");
-      window.location.href = "/";
       localStorage.setItem("token", res.data.token);
-    } catch (err) {
-      alert(err +  "Signup failed");
+      window.location.href = "/";
+    } catch (err: any) {
+      alert(err.response?.data?.error || "Signup failed");
     }
   };
 
@@ -96,7 +96,7 @@ export default function Signup() {
       {/* RIGHT - Fight Club Quote */}
       <div className="w-full md:w-1/2 flex justify-center items-center bg-black text-white p-10">
         <h1 className="text-3xl md:text-4xl font-bold text-center leading-snug uppercase tracking-wide">
-          “It's only after we've lost everything<br/>that we're free to do anything.”
+          “It&apos;s only after we&apos;ve lost everything<br />that we&apos;re free to do anything.”
           <br />
           <span className="text-lg mt-4 block opacity-70">— Fight Club</span>
         </h1>

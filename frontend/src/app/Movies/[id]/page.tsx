@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 interface Movie {
   id: string;
@@ -33,9 +34,10 @@ const MovieDetailPage = () => {
       }
 
       try {
-        const res = await fetch(`https://moviesbooking-8.onrender.com/api/custumer/movies/${movieId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `https://moviesbooking-8.onrender.com/api/custumer/movies/${movieId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
         if (!res.ok) throw new Error("Failed to fetch movie");
 
@@ -47,15 +49,18 @@ const MovieDetailPage = () => {
               `https://www.omdbapi.com/?t=${encodeURIComponent(data.title)}&apikey=8a0303e3`
             );
             const posterData = await resPoster.json();
-            data.poster = posterData.Poster && posterData.Poster !== "N/A" ? posterData.Poster : "/placeholder.png";
+            data.poster =
+              posterData.Poster && posterData.Poster !== "N/A"
+                ? posterData.Poster
+                : "/placeholder.png";
           } catch {
             data.poster = "/placeholder.png";
           }
         }
 
         setMovie(data);
-      } catch (err) {
-        setError(err + "Something went wrong");
+      } catch (err: any) {
+        setError(err.message || "Something went wrong");
       } finally {
         setLoading(false);
       }
@@ -63,7 +68,6 @@ const MovieDetailPage = () => {
 
     fetchMovie();
   }, [movieId]);
-
 
   if (loading) {
     return (
@@ -90,15 +94,24 @@ const MovieDetailPage = () => {
     <div className="min-h-screen bg-white text-black">
       <Header />
       <div className="max-w-4xl mx-auto p-6 pt-32 border-l-2 border-r-2 border-gray-500">
-        <img
+        <Image
           src={movie.poster || "/placeholder.png"}
           alt={movie.title}
-          className="w-full h-[840px] object-cover rounded-xl mb-6"
+          width={800}
+          height={840}
+          className="rounded-xl mb-6 object-cover"
+          priority
         />
         <h1 className="text-4xl font-bold mb-4 text-black">{movie.title}</h1>
-        <p className="mb-2 text-black"><strong>Duration:</strong> {movie.duration} mins</p>
-        <p className="mb-2 text-black"><strong>Rating:</strong> {movie.rating}</p>
-        <p className="mb-4 text-black"><strong>Description:</strong> {movie.description}</p>
+        <p className="mb-2 text-black">
+          <strong>Duration:</strong> {movie.duration} mins
+        </p>
+        <p className="mb-2 text-black">
+          <strong>Rating:</strong> {movie.rating}
+        </p>
+        <p className="mb-4 text-black">
+          <strong>Description:</strong> {movie.description}
+        </p>
         <button
           onClick={() => router.push(`/schedules/${movie.id}`)}
           className="px-6 py-2 bg-red-600 rounded hover:bg-blue-800 transition"
@@ -106,8 +119,7 @@ const MovieDetailPage = () => {
           Book The Ticket
         </button>
       </div>
-
-      <Footer/>
+      <Footer />
     </div>
   );
 };

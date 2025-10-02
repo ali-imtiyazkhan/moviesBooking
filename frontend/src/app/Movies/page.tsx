@@ -1,9 +1,10 @@
 "use client";
 
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Footer from "@/components/Footer";
+import Image from "next/image";
 
 interface Movie {
   id: string;
@@ -78,48 +79,50 @@ export default function MoviesPage() {
     <div className="bg-zinc-50 min-h-screen">
       <div className="bg-zinc-300 text-black border-2 border-zinc-400"><Header /></div>
 
-      <div className="p-6 pt-32 max-w-7xl mx-auto border-r-2 border-l-2  border-gray-300">
+      <div className="p-6 pt-32 max-w-7xl mx-auto border-r-2 border-l-2 border-gray-300">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {loading
             ? renderLoadingSkeleton()
             : movies.map((m) => (
-              <div
-                key={m.id}
-                className="flex flex-col items-center bg-zinc-200 rounded-xl shadow-lg hover:scale-105 transform transition-all duration-300 overflow-hidden cursor-pointer"
-                onClick={() => router.push(`/Movies/${m.id}`)}
-              >
-                <img
-                  src={m.poster || "/placeholder.png"}
-                  alt={m.title}
-                  className="w-full h-80 object-cover"
-                />
-                <div className="p-4 w-full flex flex-col items-center">
-                  <h2 className="text-xl font-bold text-black text-center">{m.title}</h2>
-                  <p className="text-gray-500 text-sm mt-2 text-center">{m.description}</p>
-                  <p className="text-gray-600 text-sm mt-1">Rating: {m.rating}</p>
+                <div
+                  key={m.id}
+                  className="flex flex-col items-center bg-zinc-200 rounded-xl shadow-lg hover:scale-105 transform transition-all duration-300 overflow-hidden cursor-pointer"
+                  onClick={() => router.push(`/Movies/${m.id}`)}
+                >
+                  <Image
+                    src={m.poster || "/placeholder.png"}
+                    alt={m.title}
+                    width={400}
+                    height={320}
+                    className="w-full h-80 object-cover"
+                  />
+                  <div className="p-4 w-full flex flex-col items-center">
+                    <h2 className="text-xl font-bold text-black text-center">{m.title}</h2>
+                    <p className="text-gray-500 text-sm mt-2 text-center">{m.description}</p>
+                    <p className="text-gray-600 text-sm mt-1">Rating: {m.rating}</p>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/Movies/${m.id}`);
-                    }}
-                    className="mt-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-full transition-colors shadow-2xl "
-                  >
-                    View Details
-                  </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/Movies/${m.id}`);
+                      }}
+                      className="mt-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-full transition-colors shadow-2xl"
+                    >
+                      View Details
+                    </button>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/schedules/${m.id}`);
-                    }}
-                    className="mt-2 bg-gray-600 hover:bg-zinc-800 text-white font-semibold px-6 py-2 rounded-full transition-colors border-2 border-zinc-500"
-                  >
-                    View Schedules
-                  </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/schedules/${m.id}`);
+                      }}
+                      className="mt-2 bg-gray-600 hover:bg-zinc-800 text-white font-semibold px-6 py-2 rounded-full transition-colors border-2 border-zinc-500"
+                    >
+                      View Schedules
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
         </div>
       </div>
 
