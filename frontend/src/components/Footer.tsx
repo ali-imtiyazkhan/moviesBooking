@@ -2,11 +2,16 @@
 
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const router = useRouter();
+
   function handleLogOut() {
-    localStorage.removeItem("token");
-    window.location.href = "/AdminLogin";
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+      router.push("/AdminLogin"); 
+    }
   }
 
   return (
