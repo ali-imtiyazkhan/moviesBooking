@@ -60,7 +60,7 @@ export default function MoviesPage() {
     const skeletons = Array.from({ length: 8 }).map((_, i) => (
       <div
         key={i}
-        className="flex flex-col items-center bg-gray-700 rounded-xl animate-pulse overflow-hidden"
+        className="flex flex-col items-center bg-gray-600 rounded-xl animate-pulse overflow-hidden"
       >
         <div className="w-full h-80 bg-gray-600" />
         <div className="p-4 w-full flex flex-col items-center">
@@ -75,16 +75,17 @@ export default function MoviesPage() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen">
-      <Header />
-      <div className="p-6 pt-32 max-w-7xl mx-auto">
+    <div className="bg-zinc-50 min-h-screen">
+      <div className="bg-zinc-300 text-black border-2 border-zinc-400"><Header /></div>
+
+      <div className="p-6 pt-32 max-w-7xl mx-auto border-r-2 border-l-2  border-gray-300">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {loading
             ? renderLoadingSkeleton()
             : movies.map((m) => (
               <div
                 key={m.id}
-                className="flex flex-col items-center bg-gray-800 rounded-xl shadow-lg hover:scale-105 transform transition-all duration-300 overflow-hidden cursor-pointer"
+                className="flex flex-col items-center bg-zinc-200 rounded-xl shadow-lg hover:scale-105 transform transition-all duration-300 overflow-hidden cursor-pointer"
                 onClick={() => router.push(`/Movies/${m.id}`)}
               >
                 <img
@@ -93,16 +94,16 @@ export default function MoviesPage() {
                   className="w-full h-80 object-cover"
                 />
                 <div className="p-4 w-full flex flex-col items-center">
-                  <h2 className="text-xl font-bold text-white text-center">{m.title}</h2>
-                  <p className="text-gray-300 text-sm mt-2 text-center">{m.description}</p>
-                  <p className="text-gray-400 text-sm mt-1">Rating: {m.rating}</p>
+                  <h2 className="text-xl font-bold text-black text-center">{m.title}</h2>
+                  <p className="text-gray-500 text-sm mt-2 text-center">{m.description}</p>
+                  <p className="text-gray-600 text-sm mt-1">Rating: {m.rating}</p>
 
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       router.push(`/Movies/${m.id}`);
                     }}
-                    className="mt-4 bg-red-600 hover:bg-blue-800 text-white font-semibold px-6 py-2 rounded-full transition-colors"
+                    className="mt-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-full transition-colors shadow-2xl "
                   >
                     View Details
                   </button>
@@ -112,7 +113,7 @@ export default function MoviesPage() {
                       e.stopPropagation();
                       router.push(`/schedules/${m.id}`);
                     }}
-                    className="mt-2 bg-gray-600 hover:bg-gray-900 text-white font-semibold px-6 py-2 rounded-full transition-colors"
+                    className="mt-2 bg-gray-800 hover:bg-gray-900 text-white font-semibold px-6 py-2 rounded-full transition-colors border-2 border-zinc-500"
                   >
                     View Schedules
                   </button>
@@ -122,7 +123,7 @@ export default function MoviesPage() {
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

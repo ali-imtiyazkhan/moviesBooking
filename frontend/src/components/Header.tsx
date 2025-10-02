@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5 bg-transparent border-b border-gray-300/40 backdrop-blur-sm transition">
+    <header className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5 bg-transparent border-b border-gray-400/40 backdrop-blur-sm transition">
       <Link href="/">
         <Image src={assets.logo} alt="Logo" width={144} height={48} />
       </Link>
@@ -55,7 +55,7 @@ const Header = () => {
         <div className="relative">
           <button
             onClick={() => setLoginOpen(!loginOpen)}
-            className="px-4 py-1 sm:px-7 sm:py-2 bg-gray-600 hover:bg-gray-800 transition rounded-full font-medium cursor-pointer"
+            className="px-4 py-1 sm:px-7 sm:py-2 border-2 border-zinc-200 bg-zinc-50 hover:bg-gray-800 hover:text-white transition rounded-full font-medium cursor-pointer text-black"
           >
             Special
           </button>

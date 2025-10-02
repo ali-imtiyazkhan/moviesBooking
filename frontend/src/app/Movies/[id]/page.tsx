@@ -87,18 +87,18 @@ const MovieDetailPage = () => {
   if (!movie) return <p className="p-4 text-white">Movie not found</p>;
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-white text-black">
       <Header />
-      <div className="max-w-4xl mx-auto p-6 pt-32">
+      <div className="max-w-4xl mx-auto p-6 pt-32 border-l-2 border-r-2 border-gray-500">
         <img
           src={movie.poster || "/placeholder.png"}
           alt={movie.title}
           className="w-full h-[840px] object-cover rounded-xl mb-6"
         />
-        <h1 className="text-4xl font-bold mb-4">{movie.title}</h1>
-        <p className="mb-2"><strong>Duration:</strong> {movie.duration} mins</p>
-        <p className="mb-2"><strong>Rating:</strong> {movie.rating}</p>
-        <p className="mb-4"><strong>Description:</strong> {movie.description}</p>
+        <h1 className="text-4xl font-bold mb-4 text-black">{movie.title}</h1>
+        <p className="mb-2 text-black"><strong>Duration:</strong> {movie.duration} mins</p>
+        <p className="mb-2 text-black"><strong>Rating:</strong> {movie.rating}</p>
+        <p className="mb-4 text-black"><strong>Description:</strong> {movie.description}</p>
         <button
           onClick={() => router.push(`/schedules/${movie.id}`)}
           className="px-6 py-2 bg-red-600 rounded hover:bg-blue-800 transition"

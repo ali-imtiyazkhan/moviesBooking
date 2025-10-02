@@ -1,4 +1,4 @@
-// File: C:\Users\my\moviesBooking\frontend\src\app\Movies\page.tsx
+// File: D:\projects\moviesBooking\frontend\src\app\Movies\page.tsx
 import * as entry from '../../../../src/app/Movies/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

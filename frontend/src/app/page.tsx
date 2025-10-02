@@ -6,16 +6,18 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>
-      <Header />
-      <div>
-        <Hero />
-      </div>
-      <Movies />
+    <div className='bg-white'>
+      <div className='text-zinc-200'>
+        <Header />
+        <div>
+          <Hero />
+        </div>
+        <Movies />
 
-      <Footer />
-    </div>
-  )
+        <div> <Footer /></div>
+
+      </div>
+    </div>)
 }
 
 export default Home

@@ -55,15 +55,18 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-700">
-      <Header />
+    <div className="min-h-screen flex flex-col bg-white border-r-2 border-black">
 
-      <main className="flex-1 max-w-5xl mx-auto w-full p-6">
+      <div className="text-black border-b-4 border-gray-800 shadow-md">
+        <Header />
+      </div>
+
+      <main className="flex-1 max-w-5xl mx-auto w-full p-6 ">
         {/* Loading Spinner */}
         {loading && (
           <div className="flex flex-col justify-center items-center py-10 pt-20">
             <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
-            <span className="mt-3 text-white font-medium">Loading theaters...</span>
+            <span className="mt-3 text-black font-medium">Loading theaters...</span>
           </div>
         )}
 
@@ -72,40 +75,43 @@ const Page = () => {
           <p className="text-red-400 font-medium text-center my-6">{message}</p>
         )}
 
-        {/* Theater List */}
+
         {!loading && theaters.length > 0 && (
-          <ul className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3 pt-15">
-            {theaters.map((theater) => (
-              <li
-                key={theater.id}
-                className="bg-gray-800 text-white rounded-2xl p-5 shadow-lg border border-zinc-700 flex flex-col justify-between hover:scale-105 transition-transform duration-200"
-              >
-                <div className="mb-4">
-                  <h3 className="font-bold text-xl">{theater.name}</h3>
-                  <p className="text-gray-300 mt-1">{theater.location}</p>
-                </div>
+          <div>
+            <span>All Theaters</span>
+            <div className="border-l-2 border-r-2 border-gray-800 px-4 pt-10">
+              <ul className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3 pt-15">
+                {theaters.map((theater) => (
+                  <li
+                    key={theater.id}
+                    className="bg-zinc-100 text-white rounded-2xl p-5 shadow-lg border border-zinc-700 flex flex-col justify-between hover:scale-105 transition-transform duration-200"
+                  >
+                    <div className="mb-4">
+                      <h3 className="font-bold text-xl text-black">{theater.name}</h3>
+                      <p className="text-gray-800 mt-1">{theater.location}</p>
+                    </div>
 
-                <button
-                  className="self-start bg-gradient-to-r from-zinc-400 to-gray-700 hover:bg-gray-900 text-white px-4 py-2 rounded shadow-md  cursor-pointer hover:scale-105 transition-transform duration-200"
-                  onClick={() => alert(`Status for ${theater.name}`)}
-                >
-                  See Status
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+                    <button
+                      className="self-start bg-gradient-to-r from-zinc-400 to-gray-700 hover:bg-gray-900 text-white px-4 py-2 rounded shadow-md cursor-pointer hover:scale-105 transition-transform duration-200"
+                      onClick={() => alert(`Status for ${theater.name}`)}
+                    >
+                      See Status
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>)}
 
-        {/* Empty State */}
+
         {!loading && theaters.length === 0 && !message && (
-          <p className="text-white text-center mt-10 font-medium">
+          <p className="text-black text-center mt-10 font-medium">
             No theaters available.
           </p>
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 mt-auto">
+      <footer className=" mt-auto">
         <Footer />
       </footer>
     </div>
