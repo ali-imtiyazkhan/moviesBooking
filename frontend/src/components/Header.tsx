@@ -14,7 +14,7 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5 bg-transparent border-b border-gray-400/40 backdrop-blur-sm transition">
+    <header className="fixed text-zinc-500 top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5 bg-transparent border-b border-gray-400/40 backdrop-blur-sm transition">
       <Link href="/">
         <Image src={assets.logo} alt="Logo" width={144} height={48} />
       </Link>

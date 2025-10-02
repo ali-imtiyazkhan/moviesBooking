@@ -1,7 +1,8 @@
 {
-  "/page": "app/page.js",
+  "/Movies/page": "app/Movies/page.js",
+  "/SearchFile/page": "app/SearchFile/page.js",
   "/schedules/[movieId]/page": "app/schedules/[movieId]/page.js",
   "/book/[scheduleId]/page": "app/book/[scheduleId]/page.js",
   "/payment/[reservationId]/page": "app/payment/[reservationId]/page.js",
-  "/tickets/page": "app/tickets/page.js"
+  "/page": "app/page.js"
 }
