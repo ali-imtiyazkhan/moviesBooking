@@ -1,35 +1,36 @@
-"use client"
-import React, { useState } from "react"
+"use client";
+import Image from "next/image";
+import React, { useState } from "react";
 
 interface Movie {
-  Title: string
-  Year: string
-  imdbID: string
-  Type: string
-  Poster: string
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
 }
 
 export default function MovieSearch() {
-  const [query, setQuery] = useState("")
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [loading, setLoading] = useState(false)
+  const [query, setQuery] = useState("");
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
-    if (!query) return
-    setLoading(true)
+    if (!query) return;
+    setLoading(true);
     try {
       const res = await fetch(
         `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&apikey=8a0303e3`
-      )
-      const data = await res.json()
-      if (data.Search) setMovies(data.Search)
-      else setMovies([])
+      );
+      const data = await res.json();
+      if (data.Search) setMovies(data.Search);
+      else setMovies([]);
     } catch (err) {
-      console.error("Error fetching movies:", err)
-      setMovies([])
+      console.error("Error fetching movies:", err);
+      setMovies([]);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -72,11 +73,15 @@ export default function MovieSearch() {
             key={m.imdbID}
             className="bg-white/10 border border-gray-700 rounded-xl shadow-lg p-3 flex flex-col items-center backdrop-blur-md hover:scale-105 hover:shadow-xl transition-transform duration-300"
           >
-            <img
-              src={m.Poster !== "N/A" ? m.Poster : "/placeholder.png"}
-              alt={m.Title}
-              className="w-40 h-60 object-cover rounded-lg mb-3"
-            />
+            <div className="w-40 h-60 relative mb-3">
+              <Image
+                src={m.Poster !== "N/A" ? m.Poster : "/placeholder.png"}
+                alt={m.Title}
+                fill
+                className="object-cover rounded-lg"
+                unoptimized={true} // optional, avoids remote image issues if not in next.config.js domains
+              />
+            </div>
             <h2 className="text-center font-bold">{m.Title}</h2>
             <p className="text-sm text-gray-400">{m.Year}</p>
             <button className="mt-2 bg-green-600 hover:bg-green-700 px-4 py-1 rounded text-white transition">
@@ -86,5 +91,5 @@ export default function MovieSearch() {
         ))}
       </div>
     </div>
-  )
+  );
 }

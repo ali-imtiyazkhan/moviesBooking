@@ -45,8 +45,8 @@ const Page = () => {
             setName("");
             setLocation("");
             window.location.href = "/Theaters"
-        } catch (err: any) {
-            setMessage(err.message || "Something went wrong, please try again.");
+        } catch (err) {
+            setMessage(err +  "Something went wrong, please try again.");
         }
     };
 

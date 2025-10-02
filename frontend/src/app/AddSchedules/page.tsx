@@ -46,17 +46,16 @@ const SetSchedule: React.FC = () => {
       setTheaterId("");
       setStartTime("");
       setEndTime("");
-    } catch (err: any) {
-      setMessage("Network error: " + err.message);
+    } catch (err) {
+      setMessage("Network error: "+ err);
     }
   };
 
   return (
     <div className="bg-gray-700 min-h-screen flex flex-col">
-      {/* Header */}
+
       <Header />
 
-      {/* Main Content */}
       <div className="flex-grow flex justify-center  items-center p-4 pt-32">
         <div className="max-w-md w-full p-6 bg-gray-600 border border-gray-700 rounded-3xl">
           <h2 className="text-xl font-bold mb-4 text-white">Set Schedule</h2>

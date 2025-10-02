@@ -43,9 +43,9 @@ const Page = () => {
         const data = await res.json();
         setTheaters(data.data || []);
         setMessage("");
-      } catch (error: any) {
+      } catch (error) {
         console.error(error);
-        setMessage(error.message || "Something went wrong");
+        setMessage(error + "Something went wrong");
       } finally {
         setLoading(false);
       }

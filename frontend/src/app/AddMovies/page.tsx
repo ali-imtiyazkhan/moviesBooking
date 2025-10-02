@@ -1,6 +1,5 @@
 "use client";
 
-import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import React, { useState } from "react";
 
@@ -55,6 +54,7 @@ const AddMovie = () => {
         setMessage(` Error: ${data.error}`);
       }
     } catch (err) {
+      console.log(err);
       setMessage("⚠️ Failed to connect to server");
     }
   };
