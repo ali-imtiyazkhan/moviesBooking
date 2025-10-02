@@ -37,7 +37,7 @@ const AddMovie = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/movies", {
+      const res = await fetch("https://moviesbooking-8.onrender.com/api/movies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

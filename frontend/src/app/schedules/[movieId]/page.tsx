@@ -35,7 +35,7 @@ export default function MovieSchedulesPage() {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/api/custumer/schedules/${movieId}`,
+          `https://moviesbooking-8.onrender.com/api/custumer/schedules/${movieId}`,
           {
             method: "GET",
             headers: {

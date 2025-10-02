@@ -25,65 +25,82 @@ export default function Signup() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/users/SignUp", formData);
+      const res = await axios.post("https://moviesbooking-8.onrender.com/users/SignUp", formData);
       alert("User Registered Successfully!");
       window.location.href = "/";
-      localStorage.setItem("token",res.data.token)
-      console.log(res.data);
+      localStorage.setItem("token", res.data.token);
     } catch (err: any) {
       alert(err.response?.data?.error || "Signup failed");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-200 shadow-lg rounded-lg p-6 w-full max-w-md space-y-4"
-      >
-        <h2 className="text-2xl font-bold text-center text-gray-800">Create Account</h2>
+    <div className="flex flex-col md:flex-row min-h-screen">
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          onChange={handleChange}
-          className="w-full border border-gray-300 text-gray-900 rounded-lg px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          onChange={handleChange}
-          className="w-full border border-gray-300 text-gray-900 rounded-lg px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="w-full border border-gray-300 text-gray-900 rounded-lg px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
-        />
-
-        <select
-          name="role"
-          onChange={handleChange}
-          value={formData.role}
-          className="w-full border border-gray-300 rounded-lg text-gray-900 px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
+      {/* LEFT - Signup Form */}
+      <div className="flex justify-center items-center w-full md:w-1/2 bg-gray-100 p-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-gray-200 shadow-lg rounded-lg p-6 w-full max-w-md space-y-4"
         >
-          <option value="CUSTOMER">Customer</option>
-          <option value="ADMIN">Admin</option>
-        </select>
+          {/* Intro Text */}
+          <p className="text-center text-gray-600 text-sm">
+            Join our movie community — sign up to book tickets instantly!
+          </p>
 
-        <button
-          type="submit"
-          className="w-full bg-gray-900 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Sign Up
-        </button>
-      </form>
+          <h2 className="text-2xl font-bold text-center text-gray-800">Create Account</h2>
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            onChange={handleChange}
+            className="w-full border border-gray-300 text-gray-900 rounded-lg px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            onChange={handleChange}
+            className="w-full border border-gray-300 text-gray-900 rounded-lg px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="w-full border border-gray-300 text-gray-900 rounded-lg px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
+          />
+
+          <select
+            name="role"
+            onChange={handleChange}
+            value={formData.role}
+            className="w-full border border-gray-300 rounded-lg text-gray-900 px-3 py-2 focus:ring focus:ring-blue-400 outline-none"
+          >
+            <option value="CUSTOMER">Customer</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+
+          <button
+            type="submit"
+            className="w-full bg-gray-900 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
+
+      {/* RIGHT - Fight Club Quote */}
+      <div className="w-full md:w-1/2 flex justify-center items-center bg-black text-white p-10">
+        <h1 className="text-3xl md:text-4xl font-bold text-center leading-snug uppercase tracking-wide">
+          “It's only after we've lost everything<br/>that we're free to do anything.”
+          <br />
+          <span className="text-lg mt-4 block opacity-70">— Fight Club</span>
+        </h1>
+      </div>
     </div>
   );
 }

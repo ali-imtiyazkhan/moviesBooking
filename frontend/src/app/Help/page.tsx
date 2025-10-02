@@ -39,20 +39,20 @@ const helpSteps = [
 
 const HelpPage = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-white text-black">
       <Header />
-      <div className="max-w-4xl mx-auto p-6 pt-32">
+      <div className="max-w-4xl mx-auto p-6 pt-32 border-l-2 border-r-2 border-zinc-200">
         <h1 className="text-4xl font-bold mb-8 text-center">How to Book a Movie</h1>
-        <div className="space-y-6">
+        <div className="space-y-6 ">
           {helpSteps.map((step) => (
             <div
               key={step.step}
-              className="bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition"
+              className="bg-zinc-100 p-6 rounded-xl shadow-md hover:shadow-lg transition"
             >
               <h2 className="text-2xl font-semibold mb-2">
                 Step {step.step}: {step.title}
               </h2>
-              <p className="text-gray-300">{step.description}</p>
+              <p className="text-black">{step.description}</p>
             </div>
           ))}
         </div>

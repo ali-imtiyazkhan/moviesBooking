@@ -40,7 +40,7 @@ export default function TicketDetailPage() {
       }
 
       try {
-        const res = await fetch(`http://localhost:3000/api/custumer/tickets/${ticketId}`, {
+        const res = await fetch(`https://moviesbooking-8.onrender.com/api/custumer/tickets/${ticketId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -61,7 +61,7 @@ export default function TicketDetailPage() {
 
   if (loading)
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-black text-white">
+    <div className="flex flex-col items-center justify-center h-screen bg-white text-black">
       <p className="text-lg mb-3">🎬 Grabbing your ticket...</p>
       <div className="flex space-x-2">
         <div className="w-3 h-3 bg-yellow-400 rounded-full animate-bounce"></div>
@@ -75,11 +75,11 @@ export default function TicketDetailPage() {
   if (!ticket) return <p className="text-white p-6">Ticket not found.</p>;
 
   return (
-    <div>
+    <div className="bg-white text-black">
       <Header />
 
-      <div className="pt-28 min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col items-center px-4">
-        <div className="w-full max-w-lg bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-gray-700">
+      <div className="pt-28 min-h-screen  text-black flex flex-col items-center px-4">
+        <div className="w-full max-w-lg bg-zinc-200 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-zinc-300">
           {/* Title Section */}
           <div className="flex items-center gap-2 mb-4">
             <TicketIcon className="text-yellow-400 w-6 h-6" />
@@ -91,9 +91,9 @@ export default function TicketDetailPage() {
             {ticket.reservation?.schedule?.movie?.title || "Unknown Movie"}
           </p>
 
-          <div className="space-y-2 text-gray-300">
+          <div className="space-y-2 text-black">
             <p>
-              🎥 <span className="font-medium">Theater:</span>{" "}
+              🎥 <span className="font-medium text-black">Theater:</span>{" "}
               {ticket.reservation?.schedule?.theater?.name || "The New Mall"}{" "}
               {ticket.reservation?.schedule?.theater?.location
                 ? `- ${ticket.reservation.schedule.theater.location}`

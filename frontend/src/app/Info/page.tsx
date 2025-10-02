@@ -21,7 +21,7 @@ export default function AdminReports() {
             if (!token) return alert("You are not authorized");
 
             try {
-                const res = await fetch("http://localhost:3000/api/admin/reports", {
+                const res = await fetch("https://moviesbooking-8.onrender.com/api/admin/reports", {
                     method: "GET",
                     headers: { Authorization: `Bearer ${token}` },
                 });

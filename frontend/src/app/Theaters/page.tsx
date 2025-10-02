@@ -26,7 +26,7 @@ const Page = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          "http://localhost:3000/api/custumer/getTheater",
+          "https://moviesbooking-8.onrender.com/api/custumer/getTheater",
           {
             method: "GET",
             headers: {
@@ -92,7 +92,7 @@ const Page = () => {
                     </div>
 
                     <button
-                      className="self-start bg-gradient-to-r from-zinc-400 to-gray-700 hover:bg-gray-900 text-white px-4 py-2 rounded shadow-md cursor-pointer hover:scale-105 transition-transform duration-200"
+                      className="self-start bg-zinc-200 text-black hover:bg-zinc-400  px-4 py-2 rounded shadow-md cursor-pointer hover:scale-105 transition-transform duration-200"
                       onClick={() => alert(`Status for ${theater.name}`)}
                     >
                       See Status

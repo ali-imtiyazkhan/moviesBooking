@@ -24,7 +24,7 @@ export default function MoviesPage() {
       setLoading(true);
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:3000/api/custumer/movies", {
+        const res = await fetch("https://moviesbooking-8.onrender.com/api/custumer/movies", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data: Movie[] = await res.json();

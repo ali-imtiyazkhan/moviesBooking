@@ -21,7 +21,7 @@ const SetSchedule: React.FC = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/schedules", {
+      const res = await fetch("https://moviesbooking-8.onrender.com/api/schedules", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

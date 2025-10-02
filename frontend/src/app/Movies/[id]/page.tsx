@@ -33,7 +33,7 @@ const MovieDetailPage = () => {
       }
 
       try {
-        const res = await fetch(`http://localhost:3000/api/custumer/movies/${movieId}`, {
+        const res = await fetch(`https://moviesbooking-8.onrender.com/api/custumer/movies/${movieId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -67,11 +67,11 @@ const MovieDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-5 bg-gray-900 text-white">
+      <div className="min-h-screen pt-5 bg-white text-black">
         <Header />
         <div className="max-w-4xl mx-auto p-6 pt-32">
           <div className="animate-pulse">
-            <div className="w-full h-[840px] bg-gray-700 rounded-xl mb-6" />
+            <div className="w-full h-[840px] bg-zinc-200 rounded-xl mb-6" />
             <div className="h-10 bg-gray-600 rounded w-3/4 mb-4" />
             <div className="h-6 bg-gray-600 rounded w-1/2 mb-2" />
             <div className="h-6 bg-gray-600 rounded w-1/4 mb-2" />

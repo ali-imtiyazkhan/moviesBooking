@@ -30,7 +30,7 @@ export default function TicketsPage() {
       if (!token) return alert("Login first");
 
       try {
-        const res = await fetch("http://localhost:3000/api/custumer/tickets", {
+        const res = await fetch("https://moviesbooking-8.onrender.com/api/custumer/tickets", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -51,41 +51,41 @@ export default function TicketsPage() {
 
   if (loading)
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
-        <div className="w-10 h-10 border-4 border-gray-600 border-t-white rounded-full animate-spin"></div>
-        <p className="mt-4 text-gray-400">Fetching your tickets...</p>
+      <div className="flex flex-col items-center justify-center h-screen bg-white text-black">
+        <div className="w-10 h-10 border-4 border-black border-t-white rounded-full animate-spin"></div>
+        <p className="mt-4 text-black">Fetching your tickets...</p>
       </div>
     );
 
   return (
-    <div>
+    <div className="bg-white text-black">
       <Header />
 
-      <div className="p-6 pt-32 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white">
+      <div className="p-6 pt-32  min-h-screen text-black">
         <h2 className="text-3xl font-bold mb-6 flex items-center gap-2">
           <TicketIcon className="w-7 h-7 text-yellow-400" /> Your Tickets
         </h2>
 
         {tickets.length === 0 ? (
-          <p className="text-gray-400">No tickets found.</p>
+          <p className="text-black">No tickets found.</p>
         ) : (
-          <ul className="space-y-4">
+          <ul className="space-y-">
             {tickets.map((ticket) => (
               <li
                 key={ticket.id}
-                className="bg-gray-800/80 p-5 rounded-xl shadow-md border border-gray-700 hover:scale-[1.01] transition-all flex justify-between items-center"
+                className="bg-zinc-200 p-5 rounded-xl shadow-md border border-zinc-300 hover:scale-[1.01] transition-all flex justify-between items-center"
               >
                 <div>
                   <p className="text-xl font-semibold text-yellow-400">
                     {ticket.reservation?.schedule?.movie?.title || "Unknown Movie"}
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-black">
                     {ticket.reservation?.schedule?.startTime
                       ? new Date(ticket.reservation.schedule.startTime).toLocaleString()
                       : "Unknown Time"}
                   </p>
-                  <p className="text-gray-400">🪑 Seat: {ticket.reservation?.seatId || "Unknown"}</p>
-                  <p className="text-gray-400">📌 Status: {ticket.reservation?.status || "Unknown"}</p>
+                  <p className="text-black">🪑 Seat: {ticket.reservation?.seatId || "Unknown"}</p>
+                  <p className="text-black">📌 Status: {ticket.reservation?.status || "Unknown"}</p>
                 </div>
                 <Link
                   href={`/tickets/${ticket.id}`}

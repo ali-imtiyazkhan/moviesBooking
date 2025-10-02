@@ -19,7 +19,7 @@ export default function PaymentPage() {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:3000/api/custumer/tickets", {
+      const res = await fetch("https://moviesbooking-8.onrender.com/api/custumer/tickets", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,25 +42,25 @@ export default function PaymentPage() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-white text-black">
       <Header />
 
-      <div className="bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen flex flex-col items-center justify-center text-white p-6 pt-32">
+      <div className=" min-h-screen flex flex-col items-center justify-center text-black p-6 pt-32">
 
-        <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl text-center">
+        <div className="w-full max-w-md bg-zinc-200 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl text-center">
 
           <h2 className="text-3xl font-bold mb-4">Complete Your Payment</h2>
 
-          <p className="text-gray-300 mb-1">Reservation ID:</p>
+          <p className="text-black mb-1">Reservation ID:</p>
           <p className="font-mono text-lg mb-4 bg-black/30 py-2 px-4 rounded-lg inline-block">{reservationId}</p>
 
-          <p className="text-gray-300 mb-1">Amount to Pay</p>
+          <p className="text-black mb-1">Amount to Pay</p>
           <p className="text-4xl font-extrabold mb-6 text-green-400">₹{amount}</p>
 
           <button
             onClick={handlePayment}
             disabled={loading}
-            className={`bg-gray-900 border-2 border-gray-500 px-8 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-green-700 transition-all ${loading ? "opacity-70 cursor-not-allowed animate-pulse" : ""
+            className={`bg-zinc-300 border-2 border-gray-200 px-8 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-green-700 transition-all ${loading ? "opacity-70 cursor-not-allowed animate-pulse" : ""
               }`}
           >
             {loading ? "Processing..." : "Proceed to Pay"}

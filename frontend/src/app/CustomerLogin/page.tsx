@@ -14,7 +14,7 @@ const LoginPage = () => {
     setLoading(true)
 
     try {
-      const res = await fetch("http://localhost:3000/users/Login", {
+      const res = await fetch("https://moviesbooking-8.onrender.com/users/Login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
