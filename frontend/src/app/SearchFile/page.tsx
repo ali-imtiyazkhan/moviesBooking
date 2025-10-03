@@ -33,26 +33,26 @@ export default function MovieSearch() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="min-h-screen bg-white text-black p-6">
 
-      {/* Search Bar */}
+    
       <div className="flex gap-2 mb-6 max-w-3xl mx-auto">
         <input
           type="text"
           placeholder="Search movies..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="border border-gray-700 bg-gray-800 text-white rounded px-4 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-zinc-300 bg-zinc-200 text-black rounded px-4 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-zinc-100"
         />
         <button
           onClick={handleSearch}
-          className="bg-blue-600 hover:bg-blue-700 transition px-6 py-2 rounded"
+          className="bg-gray-800 hover:bg-blue-700 text-white transition px-6 py-2 rounded"
         >
           Search
         </button>
       </div>
 
-      {/* Loader */}
+    
       {loading && (
         <div className="flex justify-center items-center py-20">
           <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
@@ -71,7 +71,7 @@ export default function MovieSearch() {
         {movies.map((m) => (
           <div
             key={m.imdbID}
-            className="bg-white/10 border border-gray-700 rounded-xl shadow-lg p-3 flex flex-col items-center backdrop-blur-md hover:scale-105 hover:shadow-xl transition-transform duration-300"
+            className="bg-white/10 border border-zinc-300 rounded-xl shadow-lg p-3 flex flex-col items-center backdrop-blur-md hover:scale-105 hover:shadow-xl transition-transform duration-300"
           >
             <div className="w-40 h-60 relative mb-3">
               <Image
@@ -79,11 +79,12 @@ export default function MovieSearch() {
                 alt={m.Title}
                 fill
                 className="object-cover rounded-lg"
-                unoptimized={true} // optional, avoids remote image issues if not in next.config.js domains
+                unoptimized={true}
               />
             </div>
             <h2 className="text-center font-bold">{m.Title}</h2>
             <p className="text-sm text-gray-400">{m.Year}</p>
+            <p className="text-sm text-gray-400">{m.imdbID}</p>
             <button className="mt-2 bg-green-600 hover:bg-green-700 px-4 py-1 rounded text-white transition">
               Book Show
             </button>

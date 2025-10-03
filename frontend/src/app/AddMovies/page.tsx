@@ -64,43 +64,43 @@ const AddMovie = () => {
     <div>
 
       <Header />
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800">
+      <div className="flex justify-center items-center min-h-screen bg-white">
         <form
           onSubmit={handleSubmit}
-          className="p-6 bg-white/10 backdrop-blur-lg shadow-2xl border border-gray-700 rounded-2xl w-full max-w-lg space-y-4 text-white"
+          className="p-6 bg-white/10 backdrop-blur-lg shadow-2xl border-2xl border-zinc-300 rounded-2xl w-full max-w-lg space-y-4 text-white"
         >
-          <h2 className="text-3xl font-bold text-center text-blue-400">
-            🎬 Add New Movie
+          <h2 className="text-3xl font-bold text-center text-black">
+             Add New Movie
           </h2>
 
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Movie Title</label>
+            <label className="block text-sm text-black mb-1">Movie Title</label>
             <input
               type="text"
               name="title"
               placeholder="Enter movie title"
               value={form.title}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-600 bg-gray-800 rounded-lg text-white focus:ring focus:ring-blue-500 outline-none"
+              className="w-full p-2 border border-zinc-200 rounded-lg text-black focus:ring focus:ring-zinc-400 outline-none"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Description</label>
+            <label className="block text-sm text-black mb-1">Description</label>
             <textarea
               name="description"
               placeholder="Enter short description"
               value={form.description}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-600 bg-gray-800 rounded-lg text-white focus:ring focus:ring-blue-500 outline-none"
+              className="w-full p-2 border border-zinc-200 rounded-lg text-black focus:ring focus:ring-zinc-400 outline-none"
               required
             />
           </div>
 
           <div className="flex gap-4">
             <div className="flex-1">
-              <label className="block text-sm text-gray-300 mb-1">
+              <label className="block text-sm text-black mb-1">
                 Duration (min)
               </label>
               <input
@@ -109,13 +109,13 @@ const AddMovie = () => {
                 placeholder="120"
                 value={form.duration}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 bg-gray-800 rounded-lg text-white focus:ring focus:ring-blue-500 outline-none"
+                className="w-full p-2 border border-zinc-200 bg-zinc-200 rounded-lg text-black focus:ring focus:ring-zinc-500 outline-none"
                 required
               />
             </div>
 
             <div className="flex-1">
-              <label className="block text-sm text-gray-300 mb-1">
+              <label className="block text-sm text-black mb-1">
                 Rating (0-10)
               </label>
               <input
@@ -125,7 +125,7 @@ const AddMovie = () => {
                 placeholder="8.5"
                 value={form.rating}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-600 bg-gray-800 rounded-lg text-white focus:ring focus:ring-blue-500 outline-none"
+                className="w-full p-2 border border-zinc-200 bg-zinc-200 rounded-lg text-black focus:ring focus:ring-zinc-400 outline-none"
                 required
               />
             </div>
@@ -133,9 +133,9 @@ const AddMovie = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 active:scale-95 transition rounded-lg py-2 font-semibold shadow-lg"
+            className="w-full bg-black hover:bg-gray-900 active:scale-95 transition rounded-lg py-2 font-semibold shadow-lg"
           >
-            ➕ Add Movie
+             Add Movie
           </button>
 
           {message && (

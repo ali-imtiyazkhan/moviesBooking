@@ -47,25 +47,25 @@ const SetSchedule: React.FC = () => {
       setStartTime("");
       setEndTime("");
     } catch (err) {
-      setMessage("Network error: "+ err);
+      setMessage("Network error: " + err);
     }
   };
 
   return (
-    <div className="bg-gray-700 min-h-screen flex flex-col">
+    <div className="bg-white min-h-screen flex flex-col">
 
       <Header />
 
       <div className="flex-grow flex justify-center  items-center p-4 pt-32">
-        <div className="max-w-md w-full p-6 bg-gray-600 border border-gray-700 rounded-3xl">
-          <h2 className="text-xl font-bold mb-4 text-white">Set Schedule</h2>
+        <div className="max-w-md w-full p-6 bg-zinc-100 border border-zinc-200 rounded-3xl">
+          <h2 className="text-xl font-bold mb-4 text-black">Set Schedule</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <input
               type="text"
               placeholder="Movie Id"
               value={movieId}
               onChange={(e) => setMovieId(e.target.value)}
-              className="border p-2 rounded border-gray-200 text-white bg-gray-700"
+              className="border p-2 rounded border-zinc-300 text-black bg-zinc-300 "
               required
             />
             <input
@@ -73,32 +73,32 @@ const SetSchedule: React.FC = () => {
               placeholder="Theater Id"
               value={theaterId}
               onChange={(e) => setTheaterId(e.target.value)}
-              className="border p-2 rounded text-white bg-gray-700"
+              className="border border-zinc-300 p-2 rounded text-black bg-zinc-300"
               required
             />
             <input
               type="datetime-local"
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
-              className="border p-2 rounded text-white bg-gray-700"
+              className="border p-2 border-zinc-300 rounded text-black bg-zinc-300"
               required
             />
             <input
               type="datetime-local"
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
-              className="border p-2 rounded text-white bg-gray-700"
+              className="border p-2 rounded border-zinc-300 text-black bg-zinc-300"
               required
             />
 
             <button
               type="submit"
-              className="bg-gray-500 text-white p-2 rounded mt-2 hover:bg-gray-900"
+              className="bg-zinc-300 border-zinc-200 text-black p-2 rounded mt-2 hover:bg-zinc-400"
             >
               Set Schedule
             </button>
           </form>
-          {message && <p className="mt-3 text-gray-200">{message}</p>}
+          {message && <p className="mt-3 text-black">{message}</p>}
         </div>
       </div>
 

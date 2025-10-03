@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div className='bg-white'>
-      <div className='text-zinc-200'>
+      <div className='text-zinc-400'>
         <Header />
         <div>
           <Hero />

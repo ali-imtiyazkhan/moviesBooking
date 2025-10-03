@@ -6,25 +6,35 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
     "/Movies/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/Movies/page.js"
     ],
-    "/schedules/[movieId]/page": [
+    "/Theaters/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/schedules/[movieId]/page.js"
+      "static/chunks/app/Theaters/page.js"
+    ],
+    "/SearchFile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/SearchFile/page.js"
     ],
     "/Movies/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/Movies/[id]/page.js"
     ],
-    "/SearchFile/page": [
+    "/AddSchedules/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/SearchFile/page.js"
+      "static/chunks/app/AddSchedules/page.js"
     ]
   }
 }
