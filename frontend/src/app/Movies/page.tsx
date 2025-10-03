@@ -106,7 +106,7 @@ export default function MoviesPage() {
                         e.stopPropagation();
                         router.push(`/Movies/${m.id}`);
                       }}
-                      className="mt-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-full transition-colors shadow-2xl"
+                      className="mt-4 bg-gray-900 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-full transition-colors shadow-2xl pointer-cursor"
                     >
                       View Details
                     </button>
@@ -116,7 +116,7 @@ export default function MoviesPage() {
                         e.stopPropagation();
                         router.push(`/schedules/${m.id}`);
                       }}
-                      className="mt-2 bg-gray-600 hover:bg-zinc-800 text-white font-semibold px-6 py-2 rounded-full transition-colors border-2 border-zinc-500"
+                      className="mt-2 bg-gray-600 hover:bg-zinc-800 text-white font-semibold px-6 py-2 rounded-full transition-colors border-2 border-zinc-500 pointer-cursor"
                     >
                       View Schedules
                     </button>
