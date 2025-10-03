@@ -24,7 +24,7 @@ const Header = () => {
      
       {(mobileOpen || loginOpen) && (
         <div
-          className="fixed inset-0 bg-zinc-100 backdrop-blur-sm z-40 opacity-100 transition-opacity duration-300"
+          className="fixed inset-0 bg-zinc-200 backdrop-blur-sm z-40 opacity-100 transition-opacity duration-300"
           onClick={closeAll}
         />
       )}
@@ -67,7 +67,7 @@ const Header = () => {
             </button>
 
             {loginOpen && (
-              <div className="right-0 mt-0.5 gap-2 fixed bg-zinc-200 text-black shadow-lg rounded-lg overflow-hidden w-48 z-50 animate-fadeIn">
+              <div className="absolute right-0 mt-0.5 gap-2 bg-zinc-200 text-black shadow-lg rounded-lg overflow-hidden w-48 z-50 animate-fadeIn">
                 <button
                   onClick={() => setAdminDropdownOpen(!adminDropdownOpen)}
                   className="flex justify-between items-center w-full px-4 py-2 text-left hover:bg-gray-200 border-b border-gray-300 rounded-t-lg"

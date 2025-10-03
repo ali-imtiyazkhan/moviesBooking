@@ -2,6 +2,6 @@
   "/page": "app/page.js",
   "/Theaters/page": "app/Theaters/page.js",
   "/Movies/page": "app/Movies/page.js",
-  "/Movies/[id]/page": "app/Movies/[id]/page.js",
-  "/AddSchedules/page": "app/AddSchedules/page.js"
+  "/AddSchedules/page": "app/AddSchedules/page.js",
+  "/Movies/[id]/page": "app/Movies/[id]/page.js"
 }

@@ -906,6 +906,9 @@
   .bg-zinc-300 {
     background-color: var(--color-zinc-300);
   }
+  .bg-zinc-600 {
+    background-color: var(--color-zinc-600);
+  }
   .bg-zinc-900 {
     background-color: var(--color-zinc-900);
   }
